@@ -138,7 +138,7 @@ img,svg,video{display:block;max-width:100%}
 
 <section id="intro" class="screen active">
 <div class="intro-video-wrap">
-  <video id="introVideo" src="intro-bg.mp4" autoplay playsinline muted></video>
+  <video id="introVideo" src="intro-bg.mp4" autoplay playsinline loop muted poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"></video>
 </div>
 <div class="intro-overlay"></div>
 <div class="frame">
@@ -159,7 +159,7 @@ img,svg,video{display:block;max-width:100%}
 </div>
 
 <div class="game-stage" id="gameStage">
-<video class="layer-video" id="organsVideo" src="chicken-organs.mp4" autoplay loop playsinline muted></video>
+<video class="layer-video" id="organsVideo" src="chicken-organs.mp4" autoplay loop playsinline muted poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"></video>
 
 <img class="layer-body" id="layerBody" src="chicken-body.jpg" alt="Курица" style="--x:50%;--y:50%;--radius:70px">
 
@@ -189,7 +189,7 @@ img,svg,video{display:block;max-width:100%}
 <div class="modal-icon" id="modalIcon"></div>
 <h2 class="modal-title" id="modalTitle"></h2>
 <div class="modal-video-wrap">
-  <video id="modalVideo" playsinline preload="auto"></video>
+  <video id="modalVideo" playsinline preload="auto" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"></video>
 </div>
 <div id="modalStages"></div>
 <p class="modal-text" id="modalText"></p>
@@ -256,18 +256,18 @@ stages: null
 };
 
 var QUESTIONS = [
-{q:' МОЗГ: Сколько весит мозг курицы?',options:[{text:'3-4 грамма',correct:true},{text:'30-40 грамм',correct:false},{text:'100 грамм',correct:false},{text:'1 грамм',correct:false}]},
-{q:' МОЗГ: За что отвечает мозжечок курицы?',options:[{text:'За зрение',correct:false},{text:'За равновесие',correct:true},{text:'За пищеварение',correct:false},{text:'За дыхание',correct:false}]},
-{q:' МОЗГ: Сколько сородичей может помнить курица?',options:[{text:'До 10',correct:false},{text:'До 50',correct:false},{text:'До 100',correct:true},{text:'До 1000',correct:false}]},
+{q:'🧠 МОЗГ: Сколько весит мозг курицы?',options:[{text:'3-4 грамма',correct:true},{text:'30-40 грамм',correct:false},{text:'100 грамм',correct:false},{text:'1 грамм',correct:false}]},
+{q:'🧠 МОЗГ: За что отвечает мозжечок курицы?',options:[{text:'За зрение',correct:false},{text:'За равновесие',correct:true},{text:'За пищеварение',correct:false},{text:'За дыхание',correct:false}]},
+{q:'🧠 МОЗГ: Сколько сородичей может помнить курица?',options:[{text:'До 10',correct:false},{text:'До 50',correct:false},{text:'До 100',correct:true},{text:'До 1000',correct:false}]},
 {q:' ЗОБ: Что такое зоб у курицы?',options:[{text:'Мешочек в шее, где хранится еда',correct:true},{text:'Часть крыла',correct:false},{text:'Орган дыхания',correct:false},{text:'Часть ноги',correct:false}]},
-{q:' ЗОБ: Почему курица ест быстро, почти не жуя?',options:[{text:'Чтобы набить зоб и убежать от хищников',correct:true},{text:'Потому что у неё болят зубы',correct:false},{text:'Чтобы быстрее уснуть',correct:false},{text:'Потому что еда горячая',correct:false}]},
-{q:' ЗОБ: Что происходит с зобом за ночь?',options:[{text:'Он раздувается ещё больше',correct:false},{text:'Он обычно пустеет',correct:true},{text:'Он превращается в желудок',correct:false},{text:'Ничего не происходит',correct:false}]},
-{q:' КОСТИ: Чем кости курицы отличаются от человеческих?',options:[{text:'Они полые внутри, в них воздух',correct:true},{text:'Они заполнены костным мозгом, как у нас',correct:false},{text:'Они полностью состоят из хрящей',correct:false},{text:'Они в 10 раз тяжелее',correct:false}]},
+{q:'🟡 ЗОБ: Почему курица ест быстро, почти не жуя?',options:[{text:'Чтобы набить зоб и убежать от хищников',correct:true},{text:'Потому что у неё болят зубы',correct:false},{text:'Чтобы быстрее уснуть',correct:false},{text:'Потому что еда горячая',correct:false}]},
+{q:'🟡 ЗОБ: Что происходит с зобом за ночь?',options:[{text:'Он раздувается ещё больше',correct:false},{text:'Он обычно пустеет',correct:true},{text:'Он превращается в желудок',correct:false},{text:'Ничего не происходит',correct:false}]},
+{q:'🦴 КОСТИ: Чем кости курицы отличаются от человеческих?',options:[{text:'Они полые внутри, в них воздух',correct:true},{text:'Они заполнены костным мозгом, как у нас',correct:false},{text:'Они полностью состоят из хрящей',correct:false},{text:'Они в 10 раз тяжелее',correct:false}]},
 {q:' КОСТИ: Сколько позвонков в шее курицы?',options:[{text:'7, как у человека',correct:false},{text:'10',correct:false},{text:'14',correct:true},{text:'20',correct:false}]},
-{q:' КОСТИ: Что такое киль?',options:[{text:'Часть крыла',correct:false},{text:'Выступ на грудной кости, к которому крепятся мышцы',correct:true},{text:'Кость ноги',correct:false},{text:'Часть черепа',correct:false}]},
+{q:'🦴 КОСТИ: Что такое киль?',options:[{text:'Часть крыла',correct:false},{text:'Выступ на грудной кости, к которому крепятся мышцы',correct:true},{text:'Кость ноги',correct:false},{text:'Часть черепа',correct:false}]},
 {q:' ЯЙЦЕВОД: Сколько времени занимает путь желтка до готового яйца?',options:[{text:'3 часа',correct:false},{text:'7-10 дней',correct:false},{text:'24-26 часов',correct:true},{text:'1-2 часа',correct:false}]},
 {q:' ЯЙЦЕВОД: Сколько яичников и яйцеводов работает у курицы?',options:[{text:'Оба — левый и правый',correct:false},{text:'Только левый',correct:true},{text:'Только правый',correct:false},{text:'Ни одного',correct:false}]},
-{q:' ЯЙЦЕВОД: Сколько времени желток обволакивается белком?',options:[{text:'1 час',correct:false},{text:'3 часа',correct:true},{text:'7-10 дней',correct:false},{text:'24 часа',correct:false}]}
+{q:'🥚 ЯЙЦЕВОД: Сколько времени желток обволакивается белком?',options:[{text:'1 час',correct:false},{text:'3 часа',correct:true},{text:'7-10 дней',correct:false},{text:'24 часа',correct:false}]}
 ];
 
 var STATE = {found: new Set(), quizIndex: 0, quizScore: 0, quizAnswered: false, soundOn: true, hintTimer: null, currentHint: null, videoStarted: false, musicStarted: false, bgMusicVolume: 0.3};
@@ -322,7 +322,6 @@ updateFlash(cx, cy);
 }
 function onEnd(){setTimeout(function(){if(!pointerActive) flashEffect.classList.remove('active');},500);}
 
-// Рентген работает при любом касании внутри stage
 stage.addEventListener('pointerdown', function(e){pointerActive=true; onMove(e);});
 stage.addEventListener('pointermove', function(e){if(pointerActive||e.buttons>0) onMove(e);});
 stage.addEventListener('pointerup', function(){pointerActive=false; onEnd();});
@@ -346,18 +345,37 @@ $('#modalIcon').innerHTML = d.icon;
 $('#modalTitle').textContent = d.title;
 $('#modalText').textContent = d.text;
 var v = $('#modalVideo');
+
+// Очищаем и загружаем новое видео
+v.removeAttribute('src');
+v.load();
 v.src = d.video || '';
 v.muted = false;
 v.volume = 1.0;
-v.load();
-// Запускаем видео со звуком сразу
-v.play().then(function(){
-  console.log('Видео органа запущено со звуком: ' + d.video);
-}).catch(function(e){
-  console.log('Автозапуск со звуком заблокирован, пробуем muted: ' + e.message);
-  v.muted = true;
-  v.play().catch(function(){});
-});
+
+// Обработчики событий для видео
+v.onloadeddata = function(){
+  console.log('Видео загружено: ' + d.video);
+  // Пробуем запустить видео
+  var playPromise = v.play();
+  if(playPromise !== undefined){
+    playPromise.then(function(){
+      console.log('Видео воспроизводится: ' + d.video);
+    }).catch(function(error){
+      console.log('Автозапуск видео заблокирован: ' + error);
+      // Если не получилось со звуком, пробуем без звука
+      v.muted = true;
+      v.play().catch(function(){});
+    });
+  }
+};
+
+v.onerror = function(){
+  console.error('Ошибка загрузки видео: ' + d.video);
+  // Показываем текст без видео
+  v.style.display = 'none';
+};
+
 var sc = $('#modalStages');
 sc.innerHTML = '';
 if(d.stages && d.stages.length){
@@ -375,6 +393,7 @@ function closeModal(){
 $('#organModal').classList.remove('active');
 var v = $('#modalVideo');
 v.pause();
+v.style.display = 'block';
 v.removeAttribute('src');
 v.load();
 restoreBgMusic();
@@ -487,23 +506,28 @@ $('#finalMessage').textContent=m;
 showScreen('final');
 }
 
-// ЗАПУСК СТАРТОВОГО ВИДЕО СРАЗУ ПРИ ЗАГРУЗКЕ
+// Запуск стартового видео с надежной обработкой
 function startIntroVideo(){
 if(STATE.videoStarted) return;
 STATE.videoStarted = true;
 var v = $('#introVideo');
 if(!v) return;
-// Пробуем запустить со звуком
+
+// Пробуем запустить видео
 v.muted = false;
 v.volume = 1.0;
-var p = v.play();
-if(p && p.then){
-  p.then(function(){
-    console.log('Стартовое видео запущено со звуком');
-  }).catch(function(){
-    console.log('Звук заблокирован, запускаем muted');
+
+var playPromise = v.play();
+if(playPromise !== undefined){
+  playPromise.then(function(){
+    console.log('Стартовое видео запущено');
+  }).catch(function(error){
+    console.log('Автозапуск видео заблокирован: ' + error);
+    // Пробуем запустить без звука
     v.muted = true;
-    v.play().catch(function(){});
+    v.play().catch(function(){
+      console.log('Не удалось запустить видео');
+    });
   });
 }
 }
@@ -523,6 +547,11 @@ var audio = new Audio('bg-music.mp3');
 audio.loop = true;
 audio.volume = STATE.bgMusicVolume;
 audio.id = 'bgMusic';
+
+audio.addEventListener('error', function(e){
+  console.log('Ошибка загрузки музыки:', e);
+});
+
 document.body.appendChild(audio);
 audio.play().then(function(){
   console.log('Фоновая музыка запущена');
@@ -560,12 +589,12 @@ $('#soundBtn').addEventListener('click', function(){toggleSound();});
 $('#soundBtn2').addEventListener('click', toggleSound);
 
 function init(){
-// Пытаемся запустить стартовое видео сразу при загрузке
+// Пробуем запустить стартовое видео сразу
 setTimeout(function(){
   startIntroVideo();
-}, 100);
+}, 300);
 
-// Также запускаем при первом взаимодействии (на случай блокировки)
+// Также запускаем при первом взаимодействии
 var firstInteraction = function(){
 startIntroVideo();
 document.removeEventListener('click', firstInteraction);
@@ -576,14 +605,19 @@ document.addEventListener('click', firstInteraction);
 document.addEventListener('touchstart', firstInteraction);
 document.addEventListener('keydown', firstInteraction);
 
+// Предотвращаем стандартное поведение
 var lt=0;
 document.addEventListener('touchend',function(e){var n=Date.now();if(n-lt<300)e.preventDefault();lt=n;},{passive:false});
 document.addEventListener('contextmenu',function(e){e.preventDefault();});
 document.addEventListener('gesturestart',function(e){e.preventDefault();});
 document.addEventListener('gesturechange',function(e){e.preventDefault();});
 }
-if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
-else init();
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',init);
+} else {
+  init();
+}
 
 })();
 </script>
