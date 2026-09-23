@@ -34,11 +34,16 @@ img,svg,video{display:block;max-width:100%}
 .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#00d4ff,#00ffcc);border-radius:8px;box-shadow:0 0 8px rgba(0,212,255,0.6);transition:width .6s cubic-bezier(.34,1.56,.64,1)}
 
 .game-stage{position:relative;flex:1;margin-top:6px;border-radius:16px;overflow:hidden;background:#0a0a1a;border:1px solid rgba(0,212,255,0.3);box-shadow:inset 0 0 20px rgba(0,212,255,0.1),0 0 15px rgba(0,212,255,0.15);touch-action:none;max-height:calc(100vh - 120px)}
+
+/* СЛОЙ ОРГАНОВ - НИЖНИЙ */
 .layer-video{position:absolute;inset:0;z-index:1}
-.layer-video video{width:100%;height:100%;object-fit:cover}
-.layer-body{position:absolute;inset:0;z-index:2;-webkit-mask-image:radial-gradient(circle var(--radius,70px) at var(--x,50%) var(--y,50%),transparent 0%,transparent 85%,#000 100%);mask-image:radial-gradient(circle var(--radius,70px) at var(--x,50%) var(--y,50%),transparent 0%,transparent 85%,#000 100%)}
-.layer-body img{width:100%;height:100%;object-fit:contain}
-.flashlight-effect{position:absolute;width:calc(var(--radius,70px)*2);height:calc(var(--radius,70px)*2);left:var(--x,50%);top:var(--y,50%);transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;z-index:3;opacity:0;transition:opacity .3s ease}
+.layer-video video{width:100%;height:100%;object-fit:contain}
+
+/* СЛОЙ КУРИЦЫ - ВЕРХНИЙ С МАСКОЙ */
+.layer-body{position:absolute;inset:0;z-index:2}
+.layer-body img{width:100%;height:100%;object-fit:contain;display:block}
+
+.flashlight-effect{position:absolute;width:140px;height:140px;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;z-index:3;opacity:0;transition:opacity .3s ease}
 .flashlight-effect.active{opacity:1}
 .flashlight-effect::before{content:"";position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(0,212,255,0.6);box-shadow:0 0 12px rgba(0,212,255,0.5),inset 0 0 10px rgba(0,212,255,0.25);animation:ringPulse 1.5s ease-in-out infinite}
 @keyframes ringPulse{0%,100%{box-shadow:0 0 12px rgba(0,212,255,0.5),inset 0 0 10px rgba(0,212,255,0.25)}50%{box-shadow:0 0 20px rgba(0,212,255,0.8),inset 0 0 15px rgba(0,212,255,0.4)}}
@@ -138,7 +143,7 @@ img,svg,video{display:block;max-width:100%}
 
 <section id="intro" class="screen active">
 <div class="intro-video-wrap">
-  <video id="introVideo" src="intro-bg.mp4" autoplay playsinline loop muted poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"></video>
+  <video id="introVideo" src="intro-bg.mp4" autoplay playsinline loop muted></video>
 </div>
 <div class="intro-overlay"></div>
 <div class="frame">
@@ -159,9 +164,15 @@ img,svg,video{display:block;max-width:100%}
 </div>
 
 <div class="game-stage" id="gameStage">
-<video class="layer-video" id="organsVideo" src="chicken-organs.mp4" autoplay loop playsinline muted poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"></video>
+<!-- СЛОЙ 1: ВИДЕО ОРГАНОВ (нижний) -->
+<div class="layer-video">
+  <video id="organsVideo" src="chicken-organs.mp4" autoplay loop playsinline muted></video>
+</div>
 
-<img class="layer-body" id="layerBody" src="chicken-body.jpg" alt="Курица" style="--x:50%;--y:50%;--radius:70px">
+<!-- СЛОЙ 2: ИЗОБРАЖЕНИЕ КУРИЦЫ С МАСКОЙ (верхний) -->
+<div class="layer-body" id="layerBody">
+  <img id="chickenImg" src="chicken-body.jpg" alt="Курица">
+</div>
 
 <div class="flashlight-effect" id="flashEffect"></div>
 <div class="flash-hint" id="flashHint">Коснись экрана рядом с курицей</div>
@@ -189,7 +200,7 @@ img,svg,video{display:block;max-width:100%}
 <div class="modal-icon" id="modalIcon"></div>
 <h2 class="modal-title" id="modalTitle"></h2>
 <div class="modal-video-wrap">
-  <video id="modalVideo" playsinline preload="auto" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"></video>
+  <video id="modalVideo" playsinline preload="auto"></video>
 </div>
 <div id="modalStages"></div>
 <p class="modal-text" id="modalText"></p>
@@ -263,10 +274,10 @@ var QUESTIONS = [
 {q:'🟡 ЗОБ: Почему курица ест быстро, почти не жуя?',options:[{text:'Чтобы набить зоб и убежать от хищников',correct:true},{text:'Потому что у неё болят зубы',correct:false},{text:'Чтобы быстрее уснуть',correct:false},{text:'Потому что еда горячая',correct:false}]},
 {q:'🟡 ЗОБ: Что происходит с зобом за ночь?',options:[{text:'Он раздувается ещё больше',correct:false},{text:'Он обычно пустеет',correct:true},{text:'Он превращается в желудок',correct:false},{text:'Ничего не происходит',correct:false}]},
 {q:'🦴 КОСТИ: Чем кости курицы отличаются от человеческих?',options:[{text:'Они полые внутри, в них воздух',correct:true},{text:'Они заполнены костным мозгом, как у нас',correct:false},{text:'Они полностью состоят из хрящей',correct:false},{text:'Они в 10 раз тяжелее',correct:false}]},
-{q:' КОСТИ: Сколько позвонков в шее курицы?',options:[{text:'7, как у человека',correct:false},{text:'10',correct:false},{text:'14',correct:true},{text:'20',correct:false}]},
+{q:'🦴 КОСТИ: Сколько позвонков в шее курицы?',options:[{text:'7, как у человека',correct:false},{text:'10',correct:false},{text:'14',correct:true},{text:'20',correct:false}]},
 {q:'🦴 КОСТИ: Что такое киль?',options:[{text:'Часть крыла',correct:false},{text:'Выступ на грудной кости, к которому крепятся мышцы',correct:true},{text:'Кость ноги',correct:false},{text:'Часть черепа',correct:false}]},
-{q:' ЯЙЦЕВОД: Сколько времени занимает путь желтка до готового яйца?',options:[{text:'3 часа',correct:false},{text:'7-10 дней',correct:false},{text:'24-26 часов',correct:true},{text:'1-2 часа',correct:false}]},
-{q:' ЯЙЦЕВОД: Сколько яичников и яйцеводов работает у курицы?',options:[{text:'Оба — левый и правый',correct:false},{text:'Только левый',correct:true},{text:'Только правый',correct:false},{text:'Ни одного',correct:false}]},
+{q:'🥚 ЯЙЦЕВОД: Сколько времени занимает путь желтка до готового яйца?',options:[{text:'3 часа',correct:false},{text:'7-10 дней',correct:false},{text:'24-26 часов',correct:true},{text:'1-2 часа',correct:false}]},
+{q:'🥚 ЯЙЦЕВОД: Сколько яичников и яйцеводов работает у курицы?',options:[{text:'Оба — левый и правый',correct:false},{text:'Только левый',correct:true},{text:'Только правый',correct:false},{text:'Ни одного',correct:false}]},
 {q:'🥚 ЯЙЦЕВОД: Сколько времени желток обволакивается белком?',options:[{text:'1 час',correct:false},{text:'3 часа',correct:true},{text:'7-10 дней',correct:false},{text:'24 часа',correct:false}]}
 ];
 
@@ -290,25 +301,33 @@ $('#progressFill').style.width = (c/4*100)+'%';
 
 var stage = $('#gameStage');
 var layerBody = $('#layerBody');
+var chickenImg = $('#chickenImg');
 var flashEffect = $('#flashEffect');
 var flashHint = $('#flashHint');
 var pointerActive = false;
 var hintHidden = false;
+var maskRadius = 70;
 
-function updateFlash(cx, cy){
+// НАДЕЖНАЯ МАСКА ЧЕРЕЗ ПРЯМОЕ ПРИМЕНЕНИЕ СТИЛЯ
+function updateMask(cx, cy){
 var r = stage.getBoundingClientRect();
 var x = cx - r.left;
 var y = cy - r.top;
-var px = (x/r.width)*100;
-var py = (y/r.height)*100;
-var rad = Math.max(60, Math.min(90, r.width*0.22));
-layerBody.style.setProperty('--x', px+'%');
-layerBody.style.setProperty('--y', py+'%');
-layerBody.style.setProperty('--radius', rad+'px');
-flashEffect.style.setProperty('--x', px+'%');
-flashEffect.style.setProperty('--y', py+'%');
-flashEffect.style.setProperty('--radius', rad+'px');
+
+// Обновляем маску напрямую через style
+var maskValue = 'radial-gradient(circle ' + maskRadius + 'px at ' + x + 'px ' + y + 'px, transparent 0%, transparent 85%, black 100%)';
+layerBody.style.webkitMaskImage = maskValue;
+layerBody.style.maskImage = maskValue;
+layerBody.style.webkitMaskSize = '100% 100%';
+layerBody.style.maskSize = '100% 100%';
+layerBody.style.webkitMaskRepeat = 'no-repeat';
+layerBody.style.maskRepeat = 'no-repeat';
+
+// Обновляем эффект фонарика
+flashEffect.style.left = x + 'px';
+flashEffect.style.top = y + 'px';
 flashEffect.classList.add('active');
+
 if(!hintHidden){flashHint.classList.add('hidden'); hintHidden = true;}
 }
 
@@ -318,7 +337,7 @@ e.preventDefault();
 var cx, cy;
 if(e.touches && e.touches.length){cx=e.touches[0].clientX; cy=e.touches[0].clientY;}
 else{cx=e.clientX; cy=e.clientY;}
-updateFlash(cx, cy);
+updateMask(cx, cy);
 }
 function onEnd(){setTimeout(function(){if(!pointerActive) flashEffect.classList.remove('active');},500);}
 
@@ -346,24 +365,19 @@ $('#modalTitle').textContent = d.title;
 $('#modalText').textContent = d.text;
 var v = $('#modalVideo');
 
-// Очищаем и загружаем новое видео
 v.removeAttribute('src');
 v.load();
 v.src = d.video || '';
 v.muted = false;
 v.volume = 1.0;
 
-// Обработчики событий для видео
 v.onloadeddata = function(){
-  console.log('Видео загружено: ' + d.video);
-  // Пробуем запустить видео
   var playPromise = v.play();
   if(playPromise !== undefined){
     playPromise.then(function(){
       console.log('Видео воспроизводится: ' + d.video);
     }).catch(function(error){
-      console.log('Автозапуск видео заблокирован: ' + error);
-      // Если не получилось со звуком, пробуем без звука
+      console.log('Автозапуск заблокирован: ' + error);
       v.muted = true;
       v.play().catch(function(){});
     });
@@ -372,7 +386,6 @@ v.onloadeddata = function(){
 
 v.onerror = function(){
   console.error('Ошибка загрузки видео: ' + d.video);
-  // Показываем текст без видео
   v.style.display = 'none';
 };
 
@@ -506,28 +519,21 @@ $('#finalMessage').textContent=m;
 showScreen('final');
 }
 
-// Запуск стартового видео с надежной обработкой
 function startIntroVideo(){
 if(STATE.videoStarted) return;
 STATE.videoStarted = true;
 var v = $('#introVideo');
 if(!v) return;
-
-// Пробуем запустить видео
 v.muted = false;
 v.volume = 1.0;
-
 var playPromise = v.play();
 if(playPromise !== undefined){
   playPromise.then(function(){
     console.log('Стартовое видео запущено');
   }).catch(function(error){
-    console.log('Автозапуск видео заблокирован: ' + error);
-    // Пробуем запустить без звука
+    console.log('Автозапуск заблокирован: ' + error);
     v.muted = true;
-    v.play().catch(function(){
-      console.log('Не удалось запустить видео');
-    });
+    v.play().catch(function(){});
   });
 }
 }
@@ -547,11 +553,9 @@ var audio = new Audio('bg-music.mp3');
 audio.loop = true;
 audio.volume = STATE.bgMusicVolume;
 audio.id = 'bgMusic';
-
 audio.addEventListener('error', function(e){
   console.log('Ошибка загрузки музыки:', e);
 });
-
 document.body.appendChild(audio);
 audio.play().then(function(){
   console.log('Фоновая музыка запущена');
@@ -589,12 +593,10 @@ $('#soundBtn').addEventListener('click', function(){toggleSound();});
 $('#soundBtn2').addEventListener('click', toggleSound);
 
 function init(){
-// Пробуем запустить стартовое видео сразу
 setTimeout(function(){
   startIntroVideo();
 }, 300);
 
-// Также запускаем при первом взаимодействии
 var firstInteraction = function(){
 startIntroVideo();
 document.removeEventListener('click', firstInteraction);
@@ -605,7 +607,6 @@ document.addEventListener('click', firstInteraction);
 document.addEventListener('touchstart', firstInteraction);
 document.addEventListener('keydown', firstInteraction);
 
-// Предотвращаем стандартное поведение
 var lt=0;
 document.addEventListener('touchend',function(e){var n=Date.now();if(n-lt<300)e.preventDefault();lt=n;},{passive:false});
 document.addEventListener('contextmenu',function(e){e.preventDefault();});
